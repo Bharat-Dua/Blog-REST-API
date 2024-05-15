@@ -4,6 +4,7 @@ const dotEnv = require("dotenv");
 dotEnv.config();
 
 const connectMongodb = require("./init/mongodb");
+const {authRoute}=require("./routes")
 // init app
 const app = express();
 
@@ -12,5 +13,6 @@ const app = express();
 connectMongodb();
 app.use(express.json({ limit: "500mb" }));
 app.use(bodyParser.urlencoded({ limit: "500mb", extended: true }));
+app.use("/api/v1/auth",authRoute)
 
 module.exports = app;
