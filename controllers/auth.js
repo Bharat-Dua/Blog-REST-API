@@ -1,5 +1,6 @@
 const { User } = require("../models");
 const comparePassword = require("../utils/comparePassword");
+const generateCode = require("../utils/generateCode");
 const generateToken = require("../utils/generateToken");
 const hashPassword = require("../utils/hashPassword");
 
@@ -51,6 +52,7 @@ const signup = async (req, res, next) => {
     next(error);
   }
 };
+
 const signin = async (req, res, next) => {
   try {
     const { email, password } = req.body;
@@ -76,4 +78,29 @@ const signin = async (req, res, next) => {
     next(error);
   }
 };
-module.exports = { signup, signin };
+
+const verifyCode = async (req, res, next) => {
+  try {
+    const { email } = req.body;
+    const user = await User.findOne({ email });
+    if (!user) {
+      res.code = 404;
+      throw new Error("User not found");
+    }
+    if (user.isVerified) {
+      res.code = 400;
+      throw new Error("user already verified");
+    }
+    const code = generateCode(6);
+    user.verificationCode = code;
+    await user.save();
+    res.status(200).json({
+      code: 200,
+      status: true,
+      message: "user varification code send successfully",
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+module.exports = { signup, signin, verifyCode };
