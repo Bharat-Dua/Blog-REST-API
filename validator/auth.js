@@ -25,3 +25,4 @@ const signinValidate = [
   check("password").notEmpty().withMessage("Password is required"),
 ];
 module.exports = { signupValidate, signinValidate };
+
