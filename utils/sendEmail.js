@@ -1,4 +1,5 @@
 const nodeEmail = require("nodemailer");
+const  {senderEmail,emailPassword}  = require("../config/kyes");
 
 const sendEmail = async ({ emailTo, subject, code, content }) => {
   const transporter = nodeEmail.createTransport({
@@ -6,8 +7,8 @@ const sendEmail = async ({ emailTo, subject, code, content }) => {
     port: 587,
     secure: false,
     auth: {
-      user: "bharatdua13@gmail.com",
-      pass: "wrxt sqom zcxv twuh",
+      user: senderEmail,
+      pass: emailPassword,
     },
   });
 
