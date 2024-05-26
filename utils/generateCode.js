@@ -7,7 +7,7 @@ const generateCode = function (codeLength) {
     codeLength = 4;
   }
 
-  for (let i = 0; i <= codeLength; i++) {
+  for (let i = 0; i < codeLength; i++) {
     code += number[numberLength - (i + 1)];
   }
   return code;
