@@ -8,6 +8,7 @@ const userSchema = mongoose.Schema(
     //   role: 1=>super admin,2=>normal admin,3=>normal user
     role: { type: Number, default: 3 },
     verificationCode: String,
+    forgotPasswordCode: String,
     isVerified: { type: Boolean, default: false },
   },
   { timestamps: true }
