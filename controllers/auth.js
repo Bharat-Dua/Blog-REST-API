@@ -179,7 +179,7 @@ const recoverPassword = async (req, res, next) => {
       res.code = 400;
       throw new Error("Invalid code");
     }
-    const hashedPassword = await  hashPassword(password);
+    const hashedPassword = await hashPassword(password);
     user.password = hashedPassword;
     user.forgotPasswordCode = null;
     await user.save();
@@ -193,6 +193,13 @@ const recoverPassword = async (req, res, next) => {
   }
 };
 
+const changePassword = async (req, res, next) => {
+  try {
+    res.json(req.user);
+  } catch (error) {
+    next(error);
+  }
+};
 module.exports = {
   signup,
   signin,
@@ -200,4 +207,5 @@ module.exports = {
   verifyUser,
   forgotPasswordCode,
   recoverPassword,
+  changePassword,
 };

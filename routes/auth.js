@@ -9,6 +9,8 @@ const {
   recoverPasswordValidator,
 } = require("../validator/auth");
 const validate = require("../validator/validate");
+const isAuth = require("../middlewares/isAuth");
+
 router.post("/signup", signupValidator, validate, authController.signup);
 router.post("/signin", signinValidator, validate, authController.signin);
 router.post(
@@ -36,4 +38,6 @@ router.post(
   validate,
   authController.recoverPassword
 );
+
+router.put("/change-password",isAuth,authController.changePassword)
 module.exports = router;
